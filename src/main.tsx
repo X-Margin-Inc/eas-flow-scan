@@ -8,8 +8,9 @@ import { ThemeProvider } from "./theme/theme-provider.tsx";
 import { Analytics } from "@vercel/analytics/react";
 import {ChakraProvider} from "@chakra-ui/react"
 
+
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  uri: process.env.REACT_APP_GRAPHQL_URI || "http://localhost:4000/graphql",
   cache: new InMemoryCache(),
 });
 
