@@ -9,7 +9,7 @@ import { Analytics } from "@vercel/analytics/react";
 import {ChakraProvider} from "@chakra-ui/react"
 
 const client = new ApolloClient({
-  uri: "https://sepolia.easscan.org/graphql",
+  uri: "http://localhost:4000/graphql",
   cache: new InMemoryCache(),
 });
 

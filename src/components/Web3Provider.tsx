@@ -1,14 +1,15 @@
 import { createConfig, http, WagmiProvider } from "wagmi";
-import { sepolia } from "wagmi/chains";
+import { sepolia, flowTestnet } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 
 const config = createConfig(
   getDefaultConfig({
     // Your dApps chains
-    chains: [sepolia],
+    chains: [sepolia, flowTestnet],
     transports: {
       [sepolia.id]: http(import.meta.env.VITE_SEPOLIA_URL),
+      [flowTestnet.id]: http(import.meta.env.VITE_FLOW_TESTNET_URL),
     },
 
     // Required API Keys

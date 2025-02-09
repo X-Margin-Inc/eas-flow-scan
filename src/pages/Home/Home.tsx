@@ -39,7 +39,7 @@ export const HomeScreen = () => {
     variables: {
       where: {
         creator: {
-          equals: address,
+          // equals: address,
         },
       },
     },
