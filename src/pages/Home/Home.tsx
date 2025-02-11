@@ -24,13 +24,12 @@ import { Badge } from "@/components/ui/badge";
 import { StatsCard } from "@/components";
 import { useAccount } from "wagmi";
 import { truncateString } from "@/utils/misc";
-import { EasCreateSchema } from "eas-react"
+import { EasCreateSchema } from "@credora/eas-react"
 import { useEthersSigner } from "@/utils/wagmi-utils";
 
 //@ts-ignore
 
 const NETWORK = import.meta.env.NETWORK; 
-console.log(NETWORK)
 
 export const HomeScreen = () => {
   const navigate = useNavigate();
@@ -107,7 +106,7 @@ export const HomeScreen = () => {
 
       <div className="mt-10 ">
         <h2 className="text-base/7 font-semibold text-zinc-950 sm:text-sm/6 dark:text-white">
-          My Schemas
+          Schemas
         </h2>
 
         <Table className="mt-4 cursor-pointer">

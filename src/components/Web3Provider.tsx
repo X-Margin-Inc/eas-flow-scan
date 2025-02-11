@@ -13,7 +13,7 @@ const config = createConfig(
     },
 
     // Required API Keys
-    walletConnectProjectId: import.meta.env.VITE_WALLET_CONNECT_ID as string,
+    walletConnectProjectId: import.meta.env.WALLET_CONNECT_ID as string,
 
     // Required App Info
     appName: "EAS Flow Scanner",
@@ -28,7 +28,7 @@ const config = createConfig(
 const queryClient = new QueryClient();
 
 export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
-  console.log(import.meta.env.VITE_WALLET_CONNECT_ID);
+  console.log(import.meta.env.WALLET_CONNECT_ID);
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
