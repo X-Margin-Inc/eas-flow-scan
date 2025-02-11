@@ -19,6 +19,10 @@ import { formatDateTime } from "@/utils/format";
 import { truncateString } from "@/utils/misc";
 import { EasAttest } from "eas-react";
 import { useEthersSigner } from "@/utils/wagmi-utils";
+import { networkMap } from "@/utils/utils";
+
+const NETWORK = import.meta.env.NETWORK; 
+
 
 export const SchemaDetailScreen = () => {
   const { schemaId } = useParams();
@@ -106,7 +110,7 @@ export const SchemaDetailScreen = () => {
           </dt>
           <dd className="pb-3 pt-1 text-zinc-950 sm:border-t sm:border-zinc-950/5 sm:py-3 dark:text-white dark:sm:border-white/5 sm:[&:nth-child(2)]:border-none">
             <a
-              href={`https://sepolia.etherscan.io/tx/${schema?.txid}`}
+              href={`${networkMap[schema?.network].etherscanURL}/tx/${schema?.txid}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 hover:underline"
@@ -153,7 +157,7 @@ export const SchemaDetailScreen = () => {
         <EasAttest 
         text="Attest this Schema"
         schemaId={schemaId!}
-        network="sepolia"
+        network={networkMap[NETWORK || "flowTestnet"].chainName}
         signer={signer!}
         buttonProps={{
           width: "full"

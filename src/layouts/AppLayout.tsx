@@ -33,7 +33,7 @@ export const RootLayout = () => {
           >
             Home
           </Link>
-          <Link
+          {/* <Link
             className="text-muted-foreground transition-colors hover:text-foreground"
             to={""}
           >
@@ -50,7 +50,7 @@ export const RootLayout = () => {
             to={""}
           >
             Profile
-          </Link>
+          </Link> */}
         </nav>
         <Sheet>
           <SheetTrigger asChild>

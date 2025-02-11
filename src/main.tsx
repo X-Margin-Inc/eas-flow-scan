@@ -10,7 +10,7 @@ import {ChakraProvider} from "@chakra-ui/react"
 
 
 const client = new ApolloClient({
-  uri: process.env.REACT_APP_GRAPHQL_URI || "http://localhost:4000/graphql",
+  uri: import.meta.env.REACT_APP_GRAPHQL_URI || "http://localhost:4000/graphql",
   cache: new InMemoryCache(),
 });
 

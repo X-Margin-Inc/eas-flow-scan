@@ -1,11 +1,14 @@
 import { Badge } from "@/components/ui/badge";
 import { formatDateTime } from "@/utils/format";
 import { GET_ATTESTATION_BY_ID } from "@/utils/graphql-queries";
+import { networkMap } from "@/utils/utils";
 import { useQuery } from "@apollo/client";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
+
+const NETWORK = import.meta.env.NETWORK; 
 
 export const AttestationDetails = () => {
   const { attestationId } = useParams();
@@ -154,7 +157,7 @@ export const AttestationDetails = () => {
             </dt>
             <dd className="pb-3 pt-1 text-zinc-950 sm:border-t sm:border-zinc-950/5 sm:py-3 dark:text-white dark:sm:border-white/5 sm:[&:nth-child(2)]:border-none">
               <a
-                href={`https://sepolia.etherscan.io/tx/${data?.getAttestation?.txid}`}
+                href={`${networkMap[NETWORK || "flowTestnet"].etherscanURL}/tx/${data?.getAttestation?.txid}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"

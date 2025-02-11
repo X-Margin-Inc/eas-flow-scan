@@ -1,25 +1,25 @@
 import { createConfig, http, WagmiProvider } from "wagmi";
-import { sepolia, flowTestnet } from "wagmi/chains";
+import { flowTestnet, flowMainnet } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 
 const config = createConfig(
   getDefaultConfig({
     // Your dApps chains
-    chains: [sepolia, flowTestnet],
+    chains: [flowTestnet, flowMainnet],
     transports: {
-      [sepolia.id]: http(import.meta.env.VITE_SEPOLIA_URL),
-      [flowTestnet.id]: http(import.meta.env.VITE_FLOW_TESTNET_URL),
+      [flowTestnet.id]: http(import.meta.env.RPC_TESTNET_URL),
+      [flowMainnet.id]: http(import.meta.env.RPC_MAINNET_URL),
     },
 
     // Required API Keys
     walletConnectProjectId: import.meta.env.VITE_WALLET_CONNECT_ID as string,
 
     // Required App Info
-    appName: "EAS",
+    appName: "EAS Flow Scanner",
 
     // Optional App Info
-    appDescription: "Your App Description",
+    appDescription: "EAS Flow Scanner",
     appUrl: "https://family.co", // your app's url
     appIcon: "https://family.co/logo.png", // your app's icon, no bigger than 1024x1024px (max. 1MB)
   })

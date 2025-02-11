@@ -29,6 +29,9 @@ import { useEthersSigner } from "@/utils/wagmi-utils";
 
 //@ts-ignore
 
+const NETWORK = import.meta.env.NETWORK; 
+console.log(NETWORK)
+
 export const HomeScreen = () => {
   const navigate = useNavigate();
   const signer = useEthersSigner()
@@ -67,8 +70,8 @@ export const HomeScreen = () => {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <p className="text-lg font-semibold">Welcome Back!!</p>
-        <EasCreateSchema network='sepolia'
+        <p className="text-lg font-semibold">EAS Flow Scanner</p>
+        <EasCreateSchema network='flowTestnet'
           signer={signer!}
           onSchemaCreated={(schemaId) => {
             console.log('Schema created:', schemaId);
