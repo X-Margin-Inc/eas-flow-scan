@@ -8,12 +8,12 @@ const config = createConfig(
     // Your dApps chains
     chains: [flowTestnet, flowMainnet],
     transports: {
-      [flowTestnet.id]: http(import.meta.env.RPC_TESTNET_URL),
-      [flowMainnet.id]: http(import.meta.env.RPC_MAINNET_URL),
+      [flowTestnet.id]: http(import.meta.env.VITE_RPC_TESTNET_URL),
+      [flowMainnet.id]: http(import.meta.env.VITE_RPC_MAINNET_URL),
     },
 
     // Required API Keys
-    walletConnectProjectId: import.meta.env.WALLET_CONNECT_ID as string,
+    walletConnectProjectId: import.meta.env.VITE_WALLET_CONNECT_ID as string,
 
     // Required App Info
     appName: "EAS Flow Scanner",
