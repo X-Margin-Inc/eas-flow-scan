@@ -72,9 +72,8 @@ export const HomeScreen = () => {
         <p className="text-lg font-semibold">EAS Flow Scanner</p>
         <EasCreateSchema network='flowTestnet'
           signer={signer!}
-          onSchemaCreated={(schemaId) => {
+          onSchemaCreated={(schemaId: string) => {
             console.log('Schema created:', schemaId);
-            // navigate to the schema details page
             navigate(`/schema/view/${schemaId}`)
           }}
         />
