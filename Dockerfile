@@ -7,6 +7,8 @@ RUN apk update && apk add openssl python3 py3-pip build-base
 
 RUN npm install --legacy-peer-deps
 
+RUN npm run build
+
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 

@@ -9,13 +9,11 @@ import { Analytics } from "@vercel/analytics/react";
 import {ChakraProvider} from "@chakra-ui/react"
 
 
-console.log("importEMEME")
-console.log(import.meta.env.REACT_APP_GRAPHQL_URI)
-
 const client = new ApolloClient({ 
   uri: import.meta.env.VITE_REACT_APP_GRAPHQL_URI || "http://localhost:4000/graphql",
   cache: new InMemoryCache(),
 });
+
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

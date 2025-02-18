@@ -22,7 +22,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { StatsCard } from "@/components";
-import { useAccount } from "wagmi";
+// import { useAccount } from "wagmi";
 import { truncateString } from "@/utils/misc";
 import { EasCreateSchema } from "@credora/eas-react"
 import { useEthersSigner } from "@/utils/wagmi-utils";
@@ -35,7 +35,7 @@ export const HomeScreen = () => {
   const navigate = useNavigate();
   const signer = useEthersSigner()
 
-  const { address } = useAccount();
+  // const { address } = useAccount();
 
   const { loading, error, data } = useQuery(GET_ATTESTATIONS_BY_WALLET_ID, {
     variables: {
