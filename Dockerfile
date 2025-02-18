@@ -3,7 +3,7 @@ FROM docker.io/node:22-alpine
 WORKDIR /app
 COPY . .
 
-RUN apk update && apk add openssl python3 py3-pip 
+RUN apk update && apk add openssl python3 py3-pip build-base
 
 RUN npm install --legacy-peer-deps
 
