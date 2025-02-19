@@ -7,14 +7,28 @@ import { ArrowDown, ArrowUp } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { useEffect, useState } from "react";
 
 const NETWORK = import.meta.env.NETWORK; 
 
 export const AttestationDetails = () => {
   const { attestationId } = useParams();
   const navigate = useNavigate();
+  
+  const [isDelayedLoading, setIsDelayedLoading] = useState(true);
+  const [shouldFetch, setShouldFetch] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsDelayedLoading(false);
+      setShouldFetch(true);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const { loading, error, data } = useQuery(GET_ATTESTATION_BY_ID, {
+    skip: !shouldFetch,
     variables: {
       where: {
         id: attestationId,
@@ -22,7 +36,7 @@ export const AttestationDetails = () => {
     },
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading || isDelayedLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   // Parse the JSON data

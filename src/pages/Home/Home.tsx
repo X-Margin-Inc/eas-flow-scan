@@ -26,6 +26,7 @@ import { StatsCard } from "@/components";
 import { truncateString } from "@/utils/misc";
 import { EasCreateSchema } from "@credora/eas-react"
 import { useEthersSigner } from "@/utils/wagmi-utils";
+import { useState } from 'react';
 
 //@ts-ignore
 
@@ -34,6 +35,7 @@ const NETWORK = import.meta.env.NETWORK;
 export const HomeScreen = () => {
   const navigate = useNavigate();
   const signer = useEthersSigner()
+  const [currentPage, setCurrentPage] = useState(0);
 
   // const { address } = useAccount();
 
@@ -66,6 +68,17 @@ export const HomeScreen = () => {
     );
   }, 0);
 
+  const itemsPerPage = 10; // Define how many items you want per page
+  const totalItems = data.schemata.length; // Total number of items
+  const totalPages = Math.ceil(totalItems / itemsPerPage); // Calculate total pages
+
+  // Calculate the starting index for the current page
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  // Slice the data to get only the entries for the current page
+  const currentData = data.schemata.slice(startIndex, endIndex);
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -88,14 +101,14 @@ export const HomeScreen = () => {
           changeColor="bg-lime-400/20 text-lime-700"
         />
         <StatsCard
-          title="OnChain Attestation"
+          title="OnChain Attestations"
           value={onChainCount}
           change="+4.5%"
           changeText="from last week"
           changeColor="bg-lime-400/20 text-lime-700"
         />
         <StatsCard
-          title="OffChain Attestation"
+          title="OffChain Attestations"
           value={offChainCount}
           change="+4.5%"
           changeText="from last week"
@@ -118,7 +131,7 @@ export const HomeScreen = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.schemata.map((schema: any) => (
+            {currentData.map((schema: any) => (
               <TableRow
                 key={schema.id}
                 onClick={() => navigate(`/schema/view/${schema.id}`)}
@@ -153,24 +166,24 @@ export const HomeScreen = () => {
         <Pagination>
           <PaginationContent>
             <PaginationItem>
-              <PaginationPrevious href="#" />
+              <PaginationPrevious href="#" onClick={() => setCurrentPage(prev => Math.max(prev - 1, 0))} />
             </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#" isActive>1</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">
-                2
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">3</PaginationLink>
-            </PaginationItem>
+            {Array.from({ length: totalPages }).map((_, index) => (
+              <PaginationItem key={index}>
+                <PaginationLink 
+                  href="#" 
+                  isActive={index === currentPage} 
+                  onClick={() => setCurrentPage(index)}
+                >
+                  {index + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
             <PaginationItem>
               <PaginationEllipsis />
             </PaginationItem>
             <PaginationItem>
-              <PaginationNext href="#" />
+              <PaginationNext href="#" onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages - 1))} />
             </PaginationItem>
           </PaginationContent>
         </Pagination>
