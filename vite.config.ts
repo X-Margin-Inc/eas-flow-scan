@@ -13,5 +13,10 @@ export default defineConfig({
     rollupOptions: {
       external: ['framer-motion']
     }
+  },
+  server: {
+    preview: {
+      allowedHosts: ['flow-testnet.easscan.credora.io', 'flow-mainnet.easscan.credora.io']
+    }
   }
 });
