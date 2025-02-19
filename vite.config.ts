@@ -9,11 +9,6 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  build: {
-    rollupOptions: {
-      external: ['framer-motion']
-    }
-  },
   preview: {
     allowedHosts: ['flow-testnet.easscan.credora.io', 'flow-mainnet.easscan.credora.io']
   }

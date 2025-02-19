@@ -56,6 +56,7 @@
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.1.8",
     "ethers": "^6.13.2",
+    "framer-motion": "^12.4.4",
     "graphql": "^16.9.0",
     "input-otp": "^1.2.4",
     "intl": "^1.2.5",

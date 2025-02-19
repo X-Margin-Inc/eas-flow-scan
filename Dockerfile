@@ -3,6 +3,8 @@ FROM docker.io/node:22-alpine
 WORKDIR /app
 COPY . .
 
+ENV NODE_OPTIONS="--max-old-space-size=4096"
+
 RUN apk update && apk add openssl python3 py3-pip build-base
 
 RUN npm install --legacy-peer-deps
