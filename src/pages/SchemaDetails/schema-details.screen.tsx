@@ -54,21 +54,21 @@ export const SchemaDetailScreen = () => {
 
       <div className="grid grid-cols-3 gap-20">
         <StatsCard
-          title="Total Attestation"
+          title="Total Attestations"
           value={attestations.length}
           change="+4.5%"
           changeText="from last week"
           changeColor="bg-lime-400/20 text-lime-700"
         />
         <StatsCard
-          title="OnChain Attestation"
+          title="OnChain Attestations"
           value={attestations.filter((a: any) => !a.isOffchain).length}
-          change="+4.5%"
-          changeText="from last week"
+          change=""
+          changeText=""
           changeColor="bg-lime-400/20 text-lime-700"
         />
         <StatsCard
-          title="OffChain Attestation"
+          title="OffChain Attestations"
           value={attestations.filter((a: any) => a.isOffchain).length}
           change="+4.5%"
           changeText="from last week"
@@ -186,44 +186,40 @@ export const SchemaDetailScreen = () => {
             </TableRow>
           </TableHeader>
           <TableBody className="cursor-pointer">
-            {attestations.map((attestation: any) => (
-              <TableRow
-                key={attestation.id}
-                onClick={() => navigate(`/attestation/view/${attestation.id}`)}
-              >
-                <TableCell className="px-4 py-4">
-                  <Badge variant="secondary">#{attestation.schema.index}</Badge>{" "}
-                </TableCell>
-                <TableCell className="font-medium px-4 py-4">
-                  {truncateString(attestation.id)}
-                </TableCell>
+            {attestations
+              .slice()
+              .sort((a: any, b: any) => new Date(b.time).getTime() - new Date(a.time).getTime())
+              .map((attestation: any) => (
+                <TableRow
+                  key={attestation.id}
+                  onClick={() => navigate(`/attestation/view/${attestation.id}`)}
+                >
+                  <TableCell className="px-4 py-4">
+                    <Badge variant="secondary">#{attestation.schema.index}</Badge>{" "}
+                  </TableCell>
+                  <TableCell className="font-medium px-4 py-4">
+                    {truncateString(attestation.id)}
+                  </TableCell>
 
-                <TableCell className="px-4 py-4">
-                  {truncateString(attestation.attester)}
-                </TableCell>
-                <TableCell className="px-4 py-4">
-                  {truncateString(attestation.recipient)}
-                </TableCell>
-                <TableCell className="px-4 py-4">
-                  {attestation.isOffchain ? "OffChain" : "OnChain"}
-                </TableCell>
-                <TableCell className="px-4 py-4">
-                  {formatDateTime(attestation.time)}
-                </TableCell>
-              </TableRow>
-            ))}
+                  <TableCell className="px-4 py-4">
+                    {truncateString(attestation.attester)}
+                  </TableCell>
+                  <TableCell className="px-4 py-4">
+                    {truncateString(attestation.recipient)}
+                  </TableCell>
+                  <TableCell className="px-4 py-4">
+                    {attestation.isOffchain ? "OffChain" : "OnChain"}
+                  </TableCell>
+                  <TableCell className="px-4 py-4">
+                    {formatDateTime(attestation.time)}
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
 
         <div className="mt-10 flex items-center justify-center ">
-          <div>
-            <Button
-              variant="secondary"
-              className="flex items-center justify-center w-full"
-            >
-              View All Attestations
-            </Button>
-          </div>
+         
         </div>
       </div>
     </>

@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_ATTESTATIONS = gql`
   query Attestations {
-    attestations(take: 25, orderBy: { time: desc }) {
+    attestations(take: 100000, orderBy: { time: desc }) {
       id
       attester
       recipient
@@ -11,6 +11,10 @@ export const GET_ATTESTATIONS = gql`
       revocationTime
       expirationTime
       data
+      schemaId
+      time
+      timeCreated
+      isOffchain
     }
   }
 `;

@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, NavLink } from "react-router-dom";
 import { ConnectKitButton } from "connectkit";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/theme/theme-provider";
@@ -27,24 +27,30 @@ export const RootLayout = () => {
             <Package2 className="h-6 w-6" />
             <span className="sr-only">Acme Inc</span>
           </Link>
-          <Link
-            className="text-foreground transition-colors hover:text-foreground"
-            to={""}
-          >
-            Home
-          </Link>
-          <Link
-            className="text-muted-foreground transition-colors hover:text-foreground"
-            to={""}
-          >
-            Attestations
-          </Link>
-          <Link
-            className="text-muted-foreground transition-colors hover:text-foreground"
+          <NavLink
+            className={({ isActive }) => 
+              isActive ? "text-foreground" : "text-muted-foreground transition-colors hover:text-foreground"
+            }
             to={""}
           >
             Schemas
-          </Link>
+          </NavLink>
+          <NavLink
+            className={({ isActive }) => 
+              isActive ? "text-foreground" : "text-muted-foreground transition-colors hover:text-foreground"
+            }
+            to={"/attestations"}
+          >
+            Attestations
+          </NavLink>
+          <NavLink
+            className={({ isActive }) => 
+              isActive ? "text-foreground" : "text-muted-foreground transition-colors hover:text-foreground"
+            }
+            to={"/myarea"}
+          >
+            MyArea
+          </NavLink>
         </nav>
         <Sheet>
           <SheetTrigger asChild>
