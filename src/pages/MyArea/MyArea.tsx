@@ -39,6 +39,7 @@ export const MyArea = () => {
 
   const { address } = useAccount();
 
+
   const { loading, error, data } = useQuery(GET_ATTESTATIONS_BY_WALLET_ID, {
     variables: {
       where: {

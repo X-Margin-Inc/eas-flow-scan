@@ -5,6 +5,14 @@ import { MyArea } from "./pages/MyArea/MyArea";
 import { SchemaDetailScreen } from "./pages/SchemaDetails/schema-details.screen";
 import { AttestationDetails } from "./pages/attestation-details/attestation-details.screen";
 import { Attestations } from "./pages/Attestations/Attestations";
+import { WarningPage } from "./pages/WarningPage/WarningPage";
+import { useAccount } from "wagmi";
+
+// Create a wrapper component to handle the conditional rendering
+const ProtectedMyArea = () => {
+  const { isConnected } = useAccount();
+  return isConnected ? <MyArea /> : <WarningPage />;
+};
 
 export const routerConfig = createBrowserRouter([
   {
@@ -31,7 +39,7 @@ export const routerConfig = createBrowserRouter([
       },
       {
         path: "/myarea",
-        element: <MyArea />,
+        element: <ProtectedMyArea />,
         errorElement: <h1>404 Not Found</h1>,
       },
     ],

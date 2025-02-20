@@ -25,6 +25,8 @@ export const GET_ATTESTATIONS_BY_WALLET_ID = gql`
       schema
       index
       id
+      resolver 
+      creator
       _count {
         attestations
       }

@@ -1,6 +1,6 @@
 // import { Button } from "@/components/ui/button";
 import { useQuery } from "@apollo/client";
-import { GET_ATTESTATIONS, GET_ATTESTATIONS_BY_WALLET_ID } from "@/utils/graphql-queries";
+import { GET_ATTESTATIONS_BY_WALLET_ID } from "@/utils/graphql-queries";
 
 import {
   Table,
@@ -22,6 +22,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { StatsCard } from "@/components";
+import { useAccount } from "wagmi";
 import { truncateString } from "@/utils/misc";
 import { EasCreateSchema } from "@credora/eas-react"
 import { useEthersSigner } from "@/utils/wagmi-utils";
@@ -36,41 +37,16 @@ export const Schemas = () => {
   const signer = useEthersSigner()
   const [currentPage, setCurrentPage] = useState(0);
 
-  const { loading, error, data } = useQuery(GET_ATTESTATIONS);
+  const { loading, error, data } = useQuery(GET_ATTESTATIONS_BY_WALLET_ID );
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  // Iterate over attestations and run the second query for each ID
-  const attestationsResults = data.attestations.map((attestation: any) => {
-    const { loading, error, data } = useQuery(GET_ATTESTATIONS_BY_WALLET_ID, {
-      variables: {
-        where: {
-          creator: {
-             equals: attestation.attester,
-          },
-        },
-      },
-    });
-    console.log("ssssss")
 
-    console.log(data)
-    return data; // Return the data for further processing
-  });
-  
-
-  console.log(attestationsResults)
-
-  const onChainCount = attestationsResults.schemata.reduce((acc: number, schema: any) => {
-    return (
-      acc +
-      schema.attestations.filter((attestation: any) => !attestation.isOffchain)
-        .length
-    );
-  }, 0);
+  const uniqueCreators = new Set(data.schemata.map((schema: any) => schema.creator));
 
   const itemsPerPage = 10; // Define how many items you want per page
-  const totalItems = attestationsResults.schemata.length; // Total number of items
+  const totalItems = data.schemata.length; // Total number of items
   const totalPages = Math.ceil(totalItems / itemsPerPage); // Calculate total pages
 
   // Calculate the starting index for the current page
@@ -78,7 +54,7 @@ export const Schemas = () => {
   const endIndex = startIndex + itemsPerPage;
 
   // Slice the data to get only the entries for the current page
-  const currentData = attestationsResults.schemata.slice(startIndex, endIndex);
+  const currentData = data.schemata.slice(startIndex, endIndex);
 
   return (
     <div>
@@ -96,14 +72,14 @@ export const Schemas = () => {
       <div className="grid grid-cols-3 gap-10 mt-4 mb-4">
         <StatsCard
           title="Total Schemas"
-          value={attestationsData.schemata.length ?? "Err"}
+          value={data.schemata.length ?? "Err"}
           change=""
           changeText=""
           changeColor="bg-lime-400/20 text-lime-700"
         />
         <StatsCard
           title="Unique Creators"
-          value={onChainCount}
+          value={uniqueCreators.size}
           change=""
           changeText=""
           changeColor="bg-lime-400/20 text-lime-700"
@@ -149,6 +125,12 @@ export const Schemas = () => {
                         </Badge>
                       )
                     })}
+                </TableCell>
+                <TableCell className="px-4 py-4">
+                  {truncateString(schema.creator)}
+                </TableCell>
+                <TableCell className="px-4 py-4">
+                  {truncateString(schema.resolver)}
                 </TableCell>
                 <TableCell className="px-4 py-4">
                   {schema._count.attestations}
