@@ -20,11 +20,9 @@ import {
   PaginationNext,
 } from "@/components/ui/pagination";
 import { useNavigate } from "react-router-dom";
-import { Badge } from "@/components/ui/badge";
 import { StatsCard } from "@/components";
 // import { useAccount } from "wagmi";
 import { truncateString } from "@/utils/misc";
-import { EasCreateSchema } from "@credora/eas-react"
 import { EasAttest } from "@credora/eas-react"
 import { useEthersSigner } from "@/utils/wagmi-utils";
 import { useState } from 'react';

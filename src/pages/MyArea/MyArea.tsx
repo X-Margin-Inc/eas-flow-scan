@@ -24,8 +24,6 @@ import { Badge } from "@/components/ui/badge";
 import { StatsCard } from "@/components";
 import { useAccount } from "wagmi";
 import { truncateString } from "@/utils/misc";
-import { EasCreateSchema } from "@credora/eas-react"
-import { useEthersSigner } from "@/utils/wagmi-utils";
 import { useState } from 'react';
 
 //@ts-ignore
@@ -34,7 +32,6 @@ const NETWORK = import.meta.env.NETWORK;
 
 export const MyArea = () => {
   const navigate = useNavigate();
-  const signer = useEthersSigner()
   const [currentPage, setCurrentPage] = useState(0);
 
   const { address } = useAccount();
