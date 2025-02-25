@@ -1,5 +1,7 @@
 FROM docker.io/node:22-alpine
 
+ARG NODE_ENV
+
 WORKDIR /app
 COPY . .
 
